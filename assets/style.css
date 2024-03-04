@@ -415,12 +415,6 @@ footer nav ul {
 	margin: 10px 0 8px 10px ;
 }
 
-#modal2 .modal-gallery {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-} 
-
 #modal2 .modal-content {
 	margin: 0 30px;
 }
@@ -438,27 +432,36 @@ footer nav ul {
 .form-img i {
 	color: #cbd6dc;
 	font-size: 80px;
-	margin-top: 20px;
-}
-.add-img {
-	background-color: #cbd6dc;
-	height: 40px;
-	width: 155px;
-    margin-top: 4%;
-	border: none;
-	border-radius: 60px;
-	margin-bottom: 10px;
+	margin: 20px 0;
 }
 
-.add-img a {
-	text-decoration: none;
+.form-img input {
+	display: none;
+}
+
+.form-img label {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	background-color: #cbd6dc;
 	color: #306685;
 	font-family: 'Work Sans';
-	font-weight: bold;
-
+	height: 40px;
+	width: 155px;
+	border-radius: 60px;
+	margin-bottom: 15px;
+}
+.form-img p {
+	margin-bottom: 15px;
 }
 
-#modal2 input {
+.form-add {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+}
+.form-add input {
     margin: 10px 0 35px 0;
     width: 100%;
     height: 45px;
@@ -467,7 +470,7 @@ footer nav ul {
     text-align: center;
 }
 
-#modal2 label {
+.form-add label {
     align-self: baseline;
     font-size: 14px;
     font-weight: bold;
@@ -476,6 +479,7 @@ footer nav ul {
 
 .submit {
 	background-color: #a7a7a7;
+	margin-top: 35px;
 }
 
 

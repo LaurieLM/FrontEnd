@@ -76,18 +76,21 @@
 							<div class="modal-gallery">
 								<div class="form-img">
 									<i class="fa-regular fa-image"></i>
-									<button class="add-img"><a href="#">+ Ajouter photo</a></button>
+									<label for="add-img">+ Ajouter photo</label>
+									<input type="file" name="add-img" id="add-img" accept=".jpg, .png">
 									<p>jpg, png : 4mo max</p>
 								</div>
-								<label for="title">Titre</label>
-								<input type="text" name="title" id="title" />
-								<label for="category-list">Catégorie</label>
-								<input list="category" name="category-list" id="category-list" />
-								<datalist id="category">
-									<option value="Objets"></option>
-									<option value="Appartements"></option>
-									<option value="Hôtels & Restaurants"></option>
-								</datalist>
+								<div class="form-add">
+									<label for="title">Titre</label>
+									<input type="text" name="title" id="title" />
+									<label for="category-list">Catégorie</label>
+									<input list="category" name="category-list" id="category-list" />
+									<datalist id="category">
+										<option value="Objets"></option>
+										<option value="Appartements"></option>
+										<option value="Hôtels & Restaurants"></option>
+									</datalist>
+								</div>
 							</div>
 							<button class="add submit"><a href="#">Valider</a></button>
 						</div>
