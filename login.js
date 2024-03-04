@@ -18,7 +18,7 @@ async function login() {
 
   if (user.token) {
     window.sessionStorage.setItem("userToken", user.token);
-    document.location.href = "http://127.0.0.1:5501/FrontEnd/";
+    document.location.href = "index.html";
   } else {
     messageErreur();
   }
