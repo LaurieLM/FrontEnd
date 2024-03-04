@@ -16,7 +16,6 @@
 	<script src="https://kit.fontawesome.com/b47249feaf.js" crossorigin="anonymous"></script>
 
 	<script src="homepage.js" defer></script>
-	<script src="modal.js" defer></script>
 </head>
 
 <body>
@@ -61,7 +60,36 @@
 						<div class="modal-content">
 							<h2 id="modaltitle">Galerie Photo</h2>
 							<div class="modal-gallery"></div>
-							<button class="add"><a href="#">Ajouter une photo</a></button>
+							<button class="add"><a href="#modal2" class="js-modal">Ajouter une photo</a></button>
+						</div>
+					</div>
+				</aside>
+
+				<aside id="modal2" class="modal" role="dialog">
+					<div class="modal-wrapper js-modal-stop">
+						<div class="btn-back-close">
+							<button class="js-modal-back"><i class="fa-solid fa-arrow-left"></i></button>
+							<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
+						</div>
+						<div class="modal-content">
+							<h2 id="modaltitle">Ajout photo</h2>
+							<div class="modal-gallery">
+								<div class="form-img">
+									<i class="fa-regular fa-image"></i>
+									<button class="add-img"><a href="#">+ Ajouter photo</a></button>
+									<p>jpg, png : 4mo max</p>
+								</div>
+								<label for="title">Titre</label>
+								<input type="text" name="title" id="title" />
+								<label for="category-list">Catégorie</label>
+								<input list="category" name="category-list" id="category-list" />
+								<datalist id="category">
+									<option value="Objets"></option>
+									<option value="Appartements"></option>
+									<option value="Hôtels & Restaurants"></option>
+								</datalist>
+							</div>
+							<button class="add submit"><a href="#">Valider</a></button>
 						</div>
 					</div>
 				</aside>

@@ -65,7 +65,7 @@ async function app() {
     });
   }
 
-  // Affichage des travaux dans la modal
+  // Affichage des travaux dans la modal 1
   async function displayWorksModal(element) {
     for (let i = 0; i < element.length; i++) {
       const project = element[i];
@@ -87,6 +87,7 @@ async function app() {
       const trash = document.querySelector(`.trash-${id}`);
       trash.addEventListener("click", function () {
         deleteWorks(id);
+        figure.replaceChildren();
       });
       console.log(id, trash);
     }
@@ -122,7 +123,6 @@ async function app() {
   });
 
   // Suppression des travaux
-
   async function deleteWorks(param) {
     const token = window.sessionStorage.getItem("userToken");
     await fetch(`http://localhost:5678/api/works/${param}`, {
@@ -140,6 +140,8 @@ async function app() {
   filterAppartements();
   filterHotelsRestaurants();
 }
+
+//Modal 2
 
 app();
 
