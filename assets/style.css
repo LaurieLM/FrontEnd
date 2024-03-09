@@ -406,6 +406,10 @@ footer nav ul {
 	font-size: 16px;
 }
 
+#modal2 {
+	display: none;
+}
+
 .btn-back-close {
 	display: flex;
 	justify-content: space-between;

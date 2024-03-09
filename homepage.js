@@ -2,8 +2,9 @@ async function app() {
   // Récupération des travaux
   const reponse = await fetch("http://localhost:5678/api/works");
   const works = await reponse.json();
+  console.log(works);
 
-  // Affichage des travaux
+  //Homepage -  Affichage des travaux
   async function displayWorks(element) {
     for (let i = 0; i < element.length; i++) {
       const projects = element[i];
@@ -23,18 +24,20 @@ async function app() {
     }
   }
 
-  // Filtres
+  //Homepage - Filtres
   const btnDefault = document.querySelector("#default");
   const btnObjets = document.querySelector("#objets");
   const btnAppartements = document.querySelector("#appart");
   const btnHotelsRestaurants = document.querySelector("#hotels");
 
+  //Tous
   async function filterDefault() {
     btnDefault.addEventListener("click", function () {
       displayWorks(works);
     });
   }
 
+  //Objets
   async function filterObjets() {
     btnObjets.addEventListener("click", function () {
       const projectsObjets = works.filter(function (figure) {
@@ -45,6 +48,7 @@ async function app() {
     });
   }
 
+  //Appartements
   async function filterAppartements() {
     btnAppartements.addEventListener("click", function () {
       const projectsAppartements = works.filter(function (figure) {
@@ -55,6 +59,7 @@ async function app() {
     });
   }
 
+  //Hotels & Restaurants
   async function filterHotelsRestaurants() {
     btnHotelsRestaurants.addEventListener("click", function () {
       const projectsHotelsRestaurants = works.filter(function (figure) {
@@ -93,29 +98,22 @@ async function app() {
     }
   }
 
-  let modal = null;
-
+  // Ouverture modal1 - Suppressions travaux
+  let modal1 = null;
   const openModal = function (e) {
     e.preventDefault();
     const target = document.querySelector("#modal1");
     target.style.display = "flex";
-    modal = target;
-    modal.addEventListener("click", closeModal);
-    modal
+    modal1 = target;
+    modal1.addEventListener("click", closeModal);
+    modal1
       .querySelector(".js-modal-close")
       .addEventListener("click", closeModal);
-    modal
+    modal1
       .querySelector(".js-modal-stop")
       .addEventListener("click", stopPropagation);
-  };
-
-  const closeModal = function (e) {
-    e.preventDefault();
-    modal.style.display = "none";
-  };
-
-  const stopPropagation = function (e) {
-    e.stopPropagation();
+    const modal2 = document.querySelector("#modal2");
+    modal2.style.display = "none";
   };
 
   document.querySelectorAll(".js-modal").forEach((a) => {
@@ -133,6 +131,59 @@ async function app() {
     });
   }
 
+  // Ouverture modal2 - Ajout travaux
+  let modal2 = null;
+  const openModalAdd = function (e) {
+    e.preventDefault();
+    const target = document.querySelector("#modal2");
+    target.style.display = "flex";
+    modal2 = target;
+    modal2.addEventListener("click", closeModal);
+    modal2.querySelector(".js-modal-back").addEventListener("click", openModal);
+    modal2
+      .querySelector(".js-modal-close")
+      .addEventListener("click", closeModal);
+    modal2
+      .querySelector(".js-modal-stop")
+      .addEventListener("click", stopPropagation);
+    modal2.querySelector(".submit").addEventListener;
+  };
+
+  document.querySelectorAll(".js-modal-add").forEach((a) => {
+    a.addEventListener("click", openModalAdd);
+  });
+
+  //Ajout des travaux
+  async function addWorks() {
+    const token = window.sessionStorage.getItem("userToken");
+    const addImage = document.querySelector("#add-img");
+    const title = document.querySelector("#title");
+    const category = document.querySelector("#category");
+
+    await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      body: JSON.stringify({
+        image: addImage,
+        title: title,
+        category: category,
+      }),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+  }
+  // Fermeture modal1 & 2
+  const closeModal = function (e) {
+    e.preventDefault();
+    modal1.style.display = "none";
+    modal2.style.display = "none";
+  };
+
+  const stopPropagation = function (e) {
+    e.stopPropagation();
+  };
+
   displayWorks(works);
   displayWorksModal(works);
   filterDefault();
@@ -140,8 +191,6 @@ async function app() {
   filterAppartements();
   filterHotelsRestaurants();
 }
-
-//Modal 2
 
 app();
 
