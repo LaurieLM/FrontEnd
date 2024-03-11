@@ -134,23 +134,6 @@ async function app() {
   // Ouverture modal2 - Ajout travaux
   let modal2 = null;
 
-  // Affichage Image
-  let fileInput = document.querySelector("#file");
-
-  fileInput.addEventListener("change", function (event) {
-    let file = event.target.files[0];
-    let reader = new FileReader();
-
-    reader.onload = function (e) {
-      document.querySelector("#preview").src = e.target.result;
-      const formImg = document.querySelector(".form-img");
-      formImg.style.display = "none";
-      console.log("File content: ", e.target.result);
-    };
-
-    reader.readAsDataURL(file);
-  });
-
   const openModalAdd = function (e) {
     e.preventDefault();
     const target = document.querySelector("#modal2");
@@ -171,11 +154,63 @@ async function app() {
     modal2.querySelector(".submit").addEventListener;
   };
 
+  // Affichage Image
+  let fileInput = document.querySelector("#file");
+
+  fileInput.addEventListener("change", function (event) {
+    let file = event.target.files[0];
+    let reader = new FileReader();
+
+    reader.onload = function (e) {
+      document.querySelector("#preview").src = e.target.result;
+      const formImg = document.querySelector(".form-img");
+      formImg.style.display = "none";
+      console.log("File content: ", e.target.result);
+    };
+
+    reader.readAsDataURL(file);
+  });
+
   document.querySelectorAll(".js-modal-add").forEach((a) => {
     a.addEventListener("click", openModalAdd);
   });
 
-  //Ajout des travaux
+  /**
+   * Ajout des travaux
+   */
+
+  async function addWorks(e) {
+    e.preventDefault();
+
+    const token = window.sessionStorage.getItem("userToken");
+
+    // on a besoin de récupérer les données des inputs
+    const file = document.querySelector("#file");
+    const title = document.querySelector("#title");
+    const categoryId = document.querySelector("#category-list");
+
+    // --> On veut récupérer les données des inputs
+    //    -> créer une instance d'un FormData
+    const formData = new FormData();
+    //    -> ajouter des données au formData
+    formData.append("image", file.files[0]);
+    formData.append("title", title.value);
+    formData.append("category", categoryId.value);
+
+    await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      body: formData, // ici je vais lui envoyer les données des inputs sous forme de formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  // ici tu peux recup l'event du listener et le filer en parametre de ta fonction addWorks
+  document.querySelector(".submit").addEventListener("click", function (event) {
+    addWorks(event);
+  });
+
   // async function addWorks() {
   //   const token = window.sessionStorage.getItem("userToken");
   //   const addImage = document.querySelector("#add-img");
@@ -195,6 +230,7 @@ async function app() {
   //     },
   //   });
   // }
+
   // Fermeture modal1 & 2
   const closeModal = function (e) {
     e.preventDefault();
