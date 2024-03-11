@@ -133,6 +133,24 @@ async function app() {
 
   // Ouverture modal2 - Ajout travaux
   let modal2 = null;
+
+  // Affichage Image
+  let fileInput = document.querySelector("#file");
+
+  fileInput.addEventListener("change", function (event) {
+    let file = event.target.files[0];
+    let reader = new FileReader();
+
+    reader.onload = function (e) {
+      document.querySelector("#preview").src = e.target.result;
+      const formImg = document.querySelector(".form-img");
+      formImg.style.display = "none";
+      console.log("File content: ", e.target.result);
+    };
+
+    reader.readAsDataURL(file);
+  });
+
   const openModalAdd = function (e) {
     e.preventDefault();
     const target = document.querySelector("#modal2");
@@ -143,9 +161,13 @@ async function app() {
     modal2
       .querySelector(".js-modal-close")
       .addEventListener("click", closeModal);
+
     modal2
       .querySelector(".js-modal-stop")
       .addEventListener("click", stopPropagation);
+    const modal1 = document.querySelector("#modal1");
+    modal1.style.display = "none";
+
     modal2.querySelector(".submit").addEventListener;
   };
 
@@ -154,25 +176,25 @@ async function app() {
   });
 
   //Ajout des travaux
-  async function addWorks() {
-    const token = window.sessionStorage.getItem("userToken");
-    const addImage = document.querySelector("#add-img");
-    const title = document.querySelector("#title");
-    const category = document.querySelector("#category");
+  // async function addWorks() {
+  //   const token = window.sessionStorage.getItem("userToken");
+  //   const addImage = document.querySelector("#add-img");
+  //   const title = document.querySelector("#title");
+  //   const category = document.querySelector("#category");
 
-    await fetch("http://localhost:5678/api/works", {
-      method: "POST",
-      body: JSON.stringify({
-        image: addImage,
-        title: title,
-        category: category,
-      }),
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
-  }
+  //   await fetch("http://localhost:5678/api/works", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       image: addImage,
+  //       title: title,
+  //       category: category,
+  //     }),
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       "Content-type": "application/json; charset=UTF-8",
+  //     },
+  //   });
+  // }
   // Fermeture modal1 & 2
   const closeModal = function (e) {
     e.preventDefault();
