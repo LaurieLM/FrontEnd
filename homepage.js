@@ -215,7 +215,6 @@ async function app() {
       modalContent.appendChild(erreur);
     }
   }
-
   document.querySelector(".submit").addEventListener("click", function (event) {
     addWorks(event);
     file.value = "";
