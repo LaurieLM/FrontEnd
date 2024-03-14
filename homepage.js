@@ -92,8 +92,9 @@ async function app() {
       const trash = document.querySelector(`.trash-${id}`);
       trash.addEventListener("click", function () {
         deleteWorks(id);
-        figure.replaceChildren();
+        gallery.removeChild(figure);
       });
+
       console.log(id, trash);
     }
   }
@@ -175,61 +176,52 @@ async function app() {
     a.addEventListener("click", openModalAdd);
   });
 
-  /**
-   * Ajout des travaux
-   */
+  // Modal 2 - Ajout des travaux
+
+  // Récupération des données des inputs
+  const file = document.querySelector("#file");
+  const title = document.querySelector("#title");
+  const categoryId = document.querySelector("#category-list");
 
   async function addWorks(e) {
     e.preventDefault();
 
     const token = window.sessionStorage.getItem("userToken");
 
-    // on a besoin de récupérer les données des inputs
-    const file = document.querySelector("#file");
-    const title = document.querySelector("#title");
-    const categoryId = document.querySelector("#category-list");
-
-    // --> On veut récupérer les données des inputs
-    //    -> créer une instance d'un FormData
+    // Création d'une instance d'un FormData
     const formData = new FormData();
-    //    -> ajouter des données au formData
+    // Ajout des données au formData
     formData.append("image", file.files[0]);
     formData.append("title", title.value);
     formData.append("category", categoryId.value);
 
-    await fetch("http://localhost:5678/api/works", {
+    const response = await fetch("http://localhost:5678/api/works", {
       method: "POST",
-      body: formData, // ici je vais lui envoyer les données des inputs sous forme de formData,
+      // Envoi des données des inputs sous forme de formData
+      body: formData,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    if (response.ok) {
+      console.log("Ajout OK ");
+      document.location.href = "http://127.0.0.1:5500/index.html";
+    } else {
+      const modalContent = document.querySelector("#modal2 .modal-content");
+      const erreur = document.createElement("p");
+      erreur.innerText = "Le formulaire n'est pas correctement rempli";
+      erreur.style.color = "red";
+
+      modalContent.appendChild(erreur);
+    }
   }
 
-  // ici tu peux recup l'event du listener et le filer en parametre de ta fonction addWorks
   document.querySelector(".submit").addEventListener("click", function (event) {
     addWorks(event);
+    file.value = "";
+    title.value = "";
+    categoryId.value = "";
   });
-
-  // async function addWorks() {
-  //   const token = window.sessionStorage.getItem("userToken");
-  //   const addImage = document.querySelector("#add-img");
-  //   const title = document.querySelector("#title");
-  //   const category = document.querySelector("#category");
-
-  //   await fetch("http://localhost:5678/api/works", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       image: addImage,
-  //       title: title,
-  //       category: category,
-  //     }),
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //       "Content-type": "application/json; charset=UTF-8",
-  //     },
-  //   });
-  // }
 
   // Fermeture modal1 & 2
   const closeModal = function (e) {
@@ -269,7 +261,5 @@ const logout = document.querySelector("#logout");
 
 logout.addEventListener("click", function () {
   window.sessionStorage.clear();
-  document.location.href = "http://127.0.0.1:5501/FrontEnd/";
+  document.location.href = "http://127.0.0.1:5500/index.html";
 });
-
-console.log(token);
