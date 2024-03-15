@@ -211,7 +211,6 @@ async function app() {
       const erreur = document.createElement("p");
       erreur.innerText = "Le formulaire n'est pas correctement rempli";
       erreur.style.color = "red";
-
       modalContent.appendChild(erreur);
     }
   }

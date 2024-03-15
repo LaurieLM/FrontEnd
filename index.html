@@ -78,25 +78,26 @@
 
 									<i class="fa-regular fa-image"></i>
 									<label for="file" id="upload">+ Ajouter photo</label>
-									<input type="file" name="file" id="file" accept=".jpg, .png" multiple>
+									<input type="file" name="file" id="file" accept=".jpg, .png" required>
 									<p>jpg, png : 4mo max</p>
 								</div>
 								<img src="" id="preview">
 							</div>
 							<form class="form-add" id="formAdd">
 								<label for="title">Titre</label>
-								<input type="text" name="title" id="title" />
+								<input type="text" name="title" id="title" required />
 								<label for="category">Catégorie</label>
-								<select name="category" id="category-list">
+								<select name="category" id="category-list" required>
 									<option value="0"></option>
 									<option value="1">Objets</option>
 									<option value="2">Appartements</option>
 									<option value="3">Hôtels & Restaurants</option>
 								</select>
 								<div id="line"> </div>
+								<button class="add submit" type="submit">Valider</button>
 							</form>
 
-							<button class="add submit"><a href="#">Valider</a></button>
+
 						</div>
 					</div>
 			</div>
