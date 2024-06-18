@@ -94,8 +94,6 @@ async function app() {
         deleteWorks(id);
         gallery.removeChild(figure);
       });
-
-      console.log(id, trash);
     }
   }
 
