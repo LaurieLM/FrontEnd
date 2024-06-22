@@ -256,5 +256,7 @@ const logout = document.querySelector("#logout");
 
 logout.addEventListener("click", function () {
   window.sessionStorage.clear();
-  document.location.href = "http://127.0.0.1:5500/index.html";
+  document.location.href = "http://127.0.0.1:5501/index.html";
 });
+
+console.log(token);
